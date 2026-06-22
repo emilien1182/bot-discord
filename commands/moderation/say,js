@@ -1,0 +1,11 @@
+module.exports = {
+    name: 'say',
+    category: 'moderation',
+    description: 'Faire parler le bot',
+    usage: '!say <texte>',
+    async execute(message, args) {
+        if (!args[0]) return;
+        message.delete();
+        message.channel.send(args.join(' '));
+    }
+};

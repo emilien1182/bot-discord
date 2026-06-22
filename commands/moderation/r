@@ -1,0 +1,13 @@
+module.exports = {
+    name: 'r',
+    category: 'moderation',
+    description: 'Réinitialiser un salon',
+    usage: '!r',
+    async execute(message, args) {
+        const pos = message.channel.position;
+        const newChan = await message.channel.clone();
+        await message.channel.delete();
+        newChan.setPosition(pos);
+        newChan.send("✅ Salon réinitialisé.");
+    }
+};
