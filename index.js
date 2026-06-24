@@ -102,17 +102,23 @@ client.on('interactionCreate', async interaction => {
 });
 // --- SYSTÈME DE BIENVENUE ---
 client.on('guildMemberAdd', member => {
-    // ID du salon de bienvenue
-    const welcomeChannelId = '1519434646595567667';
-    
-    // Récupérer le salon
+    const welcomeChannelId = '151943446595567667';
     const channel = member.guild.channels.cache.get(welcomeChannelId);
-    
-    // Vérifier si le salon existe
+
     if (!channel) return;
 
-    // Envoyer le message avec la mention du membre
-    channel.send(`Bienvenue sur le serveur, ${member} ! Salut a toi nous heureux de te voir ici ! 🎉 `);
-});
-// --- TON LOGIN RESTE TOUJOURS À LA FIN ---
+    // Création de l'Embed avec l'image
+    const welcomeEmbed = {
+        color: 0xFF9900, // Tu peux changer la couleur ici
+        image: {
+            url: 'https://cdn.discordapp.com/attachments/1506746204396978360/1518581254738677801/ChatGPT_Image_18_juin_2026_13_59_35.png?ex=6a3d1381&is=6a3bc201&hm=df2f0fe35de7924b0ef409295a4589f4c0163b207611b8c0e17e27872e248118&' // Remplace par le lien direct de image_e941c9.jpg
+        }
+    };
+
+    // Envoi du message avec la mention et l'embed
+    channel.send({
+        content: `Bienvenue sur le serveur, ${member} ! Salut a toi nous heureux de te voir ici ! 🎉`,
+        embeds: [welcomeEmbed]
+    });
+});--
 client.login(process.env.TOKEN);
