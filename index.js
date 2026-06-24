@@ -1,4 +1,26 @@
-const { Client, GatewayIntentBits, Collection, EmbedBuilder, ActionRowBuilder, StringSelectMenuBuilder } = require('discord.js');require('dotenv').config();
+require('dotenv').config();
+const { Client, GatewayIntentBits, Collection } = require('discord.js');
+const express = require('express');
+const app = express();
+const port = 3000;
+
+app.get('/', (req, res) => res.send('Bot is active!'));
+app.listen(port);
+
+const client = new Client({ 
+    intents: [
+        GatewayIntentBits.Guilds,
+        GatewayIntentBits.GuildMessages,
+        GatewayIntentBits.MessageContent,
+        GatewayIntentBits.GuildMembers
+    ] 
+});
+
+// ... ensuite le reste de ton code (chargement des commandes, etc.)
+const { Client, GatewayIntentBits } = require('discord.js');
+const client = new Client({ 
+    intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers] 
+});const { Client, GatewayIntentBits, Collection, EmbedBuilder, ActionRowBuilder, StringSelectMenuBuilder } = require('discord.js');require('dotenv').config();
 const express = require('express');
 const app = express();
 const port = 3000;
@@ -68,7 +90,6 @@ client.on('interactionCreate', async interaction => {
 // --- AJOUTE CECI DANS TON index.js ---
 
 client.once('ready', () => {
-    console.log(`✅ Le bot ${client.user.tag} est en ligne et opérationnel !`);
     
     // Optionnel : Définir un statut pour le bot
     client.user.setActivity('ton serveur', { type: 'WATCHING' });
