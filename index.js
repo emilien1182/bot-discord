@@ -100,5 +100,19 @@ client.on('interactionCreate', async interaction => {
     
     // ... reste de ton code pour les tickets ...
 });
+// --- SYSTÈME DE BIENVENUE ---
+client.on('guildMemberAdd', member => {
+    // ID du salon de bienvenue
+    const welcomeChannelId = '1519344838938460170';
+    
+    // Récupérer le salon
+    const channel = member.guild.channels.cache.get(welcomeChannelId);
+    
+    // Vérifier si le salon existe
+    if (!channel) return;
+
+    // Envoyer le message avec la mention du membre
+    channel.send(`Bienvenue sur le serveur, ${member} ! Ravi de te voir parmi nous.`);
+});
 // --- TON LOGIN RESTE TOUJOURS À LA FIN ---
 client.login(process.env.TOKEN);
