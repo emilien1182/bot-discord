@@ -103,11 +103,19 @@ client.on('interactionCreate', async interaction => {
 });
 // --- SYSTÈME DE BIENVENUE ---
 client.on('guildMemberAdd', member => {
-    const welcomeChannelId = '151943446595567667';
+    console.log(`Nouveau membre détecté : ${member.user.tag}`); // Ajoute cette ligne
+    
+    const welcomeChannelId = '1519434646595567667';
     const channel = member.guild.channels.cache.get(welcomeChannelId);
 
-    if (!channel) return;
+    if (!channel) {
+        console.log("Erreur : Salon non trouvé."); // Ajoute cette ligne
+        return;
+    }
 
+    // ... ton code d'envoi ici ...
+    console.log("Message de bienvenue envoyé !"); // Ajoute cette ligne
+});
     // Création de l'Embed avec l'image
     const welcomeEmbed = {
         color: 0xFF9900, // Tu peux changer la couleur ici
@@ -118,8 +126,8 @@ client.on('guildMemberAdd', member => {
 
     // Envoi du message avec la mention et l'embed
     channel.send({
-        content: `Bienvenue sur le serveur, ${member} ! Salut a toi nous heureux de te voir ici ! 🎉`,
+    content: `Bienvenue sur le serveur, ${member} ! Salut a toi nous heureux de te voir ici ! 🎉`, 
         embeds: [welcomeEmbed]
     });
-})
+
 client.login(process.env.TOKEN);
