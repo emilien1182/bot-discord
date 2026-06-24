@@ -103,7 +103,7 @@ client.on('interactionCreate', async interaction => {
 // --- SYSTÈME DE BIENVENUE ---
 client.on('guildMemberAdd', member => {
     // ID du salon de bienvenue
-    const welcomeChannelId = '1519344838938460170';
+    const welcomeChannelId = '1519434646595567667';
     
     // Récupérer le salon
     const channel = member.guild.channels.cache.get(welcomeChannelId);
@@ -112,7 +112,7 @@ client.on('guildMemberAdd', member => {
     if (!channel) return;
 
     // Envoyer le message avec la mention du membre
-    channel.send(`Bienvenue sur le serveur, ${member} ! Ravi de te voir parmi nous.`);
+    channel.send(`Bienvenue sur le serveur, ${member} ! Salut a toi nous heureux de te voir ici ! 🎉 `);
 });
 // --- TON LOGIN RESTE TOUJOURS À LA FIN ---
 client.login(process.env.TOKEN);
