@@ -17,7 +17,7 @@ const client = new Client({
 });
 
 // ... ensuite le reste de ton code (chargement des commandes, etc.)
-const { Client, GatewayIntentBits } = require('discord.js');
+
 const client = new Client({ 
     intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers] 
 });const { Client, GatewayIntentBits, Collection, EmbedBuilder, ActionRowBuilder, StringSelectMenuBuilder } = require('discord.js');require('dotenv').config();
