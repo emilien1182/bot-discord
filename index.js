@@ -103,31 +103,29 @@ client.on('interactionCreate', async interaction => {
 });
 // --- SYSTÈME DE BIENVENUE ---
 client.on('guildMemberAdd', member => {
-    console.log(`Nouveau membre détecté : ${member.user.tag}`); // Ajoute cette ligne
-    
     const welcomeChannelId = '1519434646595567667';
     const channel = member.guild.channels.cache.get(welcomeChannelId);
 
     if (!channel) {
-        console.log("Erreur : Salon non trouvé."); // Ajoute cette ligne
+        console.log("Salon non trouvé !");
         return;
     }
 
-    // ... ton code d'envoi ici ...
-    console.log("Message de bienvenue envoyé !"); // Ajoute cette ligne
-});
-    // Création de l'Embed avec l'image
+    // 1. On définit l'Embed DANS la fonction
     const welcomeEmbed = {
-        color: 0xFF9900, // Tu peux changer la couleur ici
+        color: 0xFF9900,
         image: {
-            url: 'https://cdn.discordapp.com/attachments/1506746204396978360/1518581254738677801/ChatGPT_Image_18_juin_2026_13_59_35.png?ex=6a3d1381&is=6a3bc201&hm=df2f0fe35de7924b0ef409295a4589f4c0163b207611b8c0e17e27872e248118&' // Remplace par le lien direct de image_e941c9.jpg
+            url: 'https://cdn.discordapp.com/attachments/1506746204396978360/1518581254738677801/ChatGPT_Image_18_juin_2026_13_59_35.png?ex=6a3d1381&is=6a3bc201&hm=df2f0fe35de7924b0ef409295a4589f4c0163b207611b8c0e17e27872e248118&'
         }
     };
 
-    // Envoi du message avec la mention et l'embed
+    // 2. On envoie une seule fois le message
     channel.send({
-    content: `Bienvenue sur le serveur, ${member} ! Salut a toi nous heureux de te voir ici ! 🎉`, 
+        content: `Bienvenue sur le serveur, ${member} ! Salut à toi nous sommes heureux de te voir ici ! 🎉`,
         embeds: [welcomeEmbed]
     });
+    
+    console.log("Message de bienvenue envoyé !");
+});
 
 client.login(process.env.TOKEN);
