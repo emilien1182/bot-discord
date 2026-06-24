@@ -101,4 +101,4 @@ client.on('interactionCreate', async interaction => {
     // ... reste de ton code pour les tickets ...
 });
 // --- TON LOGIN RESTE TOUJOURS À LA FIN ---
-client.loginprocess.env.TOKEN
+client.login(process.env.TOKEN);
