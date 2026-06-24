@@ -120,5 +120,5 @@ client.on('guildMemberAdd', member => {
         content: `Bienvenue sur le serveur, ${member} ! Salut a toi nous heureux de te voir ici ! 🎉`,
         embeds: [welcomeEmbed]
     });
-});
+})
 client.login(process.env.TOKEN);
