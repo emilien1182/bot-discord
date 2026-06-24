@@ -1,4 +1,10 @@
 const { Client, GatewayIntentBits, Collection, EmbedBuilder, ActionRowBuilder, StringSelectMenuBuilder } = require('discord.js');require('dotenv').config();
+const express = require('express');
+const app = express();
+const port = 3000;
+
+app.get('/', (req, res) => res.send('Bot is active!'));
+app.listen(port);
 const fs = require('fs');
 
 const client = new Client({
@@ -95,4 +101,4 @@ client.on('interactionCreate', async interaction => {
     // ... reste de ton code pour les tickets ...
 });
 // --- TON LOGIN RESTE TOUJOURS À LA FIN ---
-client.login(process.env.TOKEN);
+client.loginprocess.env.TOKEN
