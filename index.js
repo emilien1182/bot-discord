@@ -138,6 +138,24 @@ client.on('guildMemberAdd', async member => {
     
     console.log("Message de bienvenue envoyé !");
 });
+// --- ATTRIBUTION AUTOMATIQUE DU RÔLE MEMBRE ---
+client.on('guildMemberAdd', async member => {
+    // ID du rôle "Membre" (Remplace par l'ID réel de ton rôle)
+    const roleMembreId = '1321934751321427998'; 
+    
+    // On récupère le rôle
+    const role = member.guild.roles.cache.get(roleMembreId);
+    
+    // On l'ajoute si le rôle existe
+    if (role) {
+        try {
+            await member.roles.add(role);
+            console.log(`Rôle Membre ajouté automatiquement à ${member.user.tag}`);
+        } catch (error) {
+            console.error("Impossible d'ajouter le rôle :", error);
+        }
+    }
+});
 // Vérification automatique toutes les heures
 setInterval(async () => {
     const guild = client.guilds.cache.get('1321930333041725541');
@@ -148,22 +166,24 @@ setInterval(async () => {
 
         const diffInDays = (Date.now() - member.joinedTimestamp) / (1000 * 60 * 60 * 24);
 
-        // Liste des rôles à attribuer selon les semaines
-        // Assure-toi que les noms correspondent exactement à ceux de ton serveur
+        // 1. Déterminer le nom du rôle selon les jours
         let roleName = "";
-        if (diffInDays >= 28) roleName = "Niveau 50";      // 4 semaines
-        else if (diffInDays >= 21) roleName = "Niveau 30"; // 3 semaines
-        else if (diffInDays >= 14) roleName = "Niveau 20"; // 2 semaines
-        else if (diffInDays >= 7) roleName = "Niveau 10";  // 1 semaine
+        if (diffInDays >= 28) roleName = "Niveau 40";
+        else if (diffInDays >= 21) roleName = "Niveau 30";
+        else if (diffInDays >= 14) roleName = "Niveau 20";
+        else if (diffInDays >= 7) roleName = "Niveau 10";
 
+        // 2. Si un rôle est déterminé, on le cherche et on l'ajoute
         if (roleName) {
             const role = guild.roles.cache.find(r => r.name === roleName);
-            // On ajoute le rôle s'il ne l'a pas encore
+            
+            // On ajoute le rôle s'il existe ET que le membre ne l'a pas encore
             if (role && !member.roles.cache.has(role.id)) {
                 await member.roles.add(role).catch(console.error);
                 console.log(`Rôle ${roleName} ajouté à ${member.user.tag}`);
             }
         }
     });
-}, 3600000); // 3600000ms = 1 heure
+}, 3600000); 
+
 client.login(process.env.TOKEN);
