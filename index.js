@@ -105,7 +105,18 @@ client.on('interactionCreate', async interaction => {
 client.on('guildMemberAdd', member => {
     const welcomeChannelId = '1519434646595567667';
     const channel = member.guild.channels.cache.get(welcomeChannelId);
+client.on('guildMemberAdd', async member => {
+    // ID du salon de bienvenue (ton ID)
+    const welcomeChannelId = '1519344838938460170';
+    const channel = member.guild.channels.cache.get(welcomeChannelId);
+    if (channel) channel.send(`Bienvenue, ${member} !`);
 
+    // Attribution du rôle "Membre"
+    const role = member.guild.roles.cache.find(r => r.name === 'Membre');
+    if (role) {
+        await member.roles.add(role).catch(console.error);
+    }
+});
     if (!channel) {
         console.log("Salon non trouvé !");
         return;
@@ -127,5 +138,32 @@ client.on('guildMemberAdd', member => {
     
     console.log("Message de bienvenue envoyé !");
 });
+// Vérification automatique toutes les heures
+setInterval(async () => {
+    const guild = client.guilds.cache.get('1321930333041725541');
+    if (!guild) return;
 
+    guild.members.cache.forEach(async member => {
+        if (member.user.bot) return;
+
+        const diffInDays = (Date.now() - member.joinedTimestamp) / (1000 * 60 * 60 * 24);
+
+        // Liste des rôles à attribuer selon les semaines
+        // Assure-toi que les noms correspondent exactement à ceux de ton serveur
+        let roleName = "";
+        if (diffInDays >= 28) roleName = "Niveau 50";      // 4 semaines
+        else if (diffInDays >= 21) roleName = "Niveau 30"; // 3 semaines
+        else if (diffInDays >= 14) roleName = "Niveau 20"; // 2 semaines
+        else if (diffInDays >= 7) roleName = "Niveau 10";  // 1 semaine
+
+        if (roleName) {
+            const role = guild.roles.cache.find(r => r.name === roleName);
+            // On ajoute le rôle s'il ne l'a pas encore
+            if (role && !member.roles.cache.has(role.id)) {
+                await member.roles.add(role).catch(console.error);
+                console.log(`Rôle ${roleName} ajouté à ${member.user.tag}`);
+            }
+        }
+    });
+}, 3600000); // 3600000ms = 1 heure
 client.login(process.env.TOKEN);
